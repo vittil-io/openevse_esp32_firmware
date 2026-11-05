@@ -1,2 +1,3 @@
 dependencies:
   idf: '>=5.1'
+  vittil-io/vittil: "^0.1.5"

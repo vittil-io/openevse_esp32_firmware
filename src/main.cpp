@@ -45,6 +45,11 @@
 #include "openevse.h"
 #include "root_ca.h"
 #include "espal.h"
+
+#ifdef VITTIL_ENABLED
+// Vittil: crash reports from ESP32 devices in the field (https://vittil.io).
+#include "vittil.h"
+#endif
 #include "time_man.h"
 #include "tesla_client.h"
 #include "event.h"
@@ -142,6 +147,9 @@ SET_LOOP_TASK_STACK_SIZE(16 * 1024);
 // -------------------------------------------------------------------
 void setup()
 {
+#ifdef VITTIL_ENABLED
+  vittil_start();  // start Vittil early; never blocks
+#endif
   // Parse command line early so we can set options (e.g. RAPI PTY path)
 #if defined(EPOXY_DUINO)
   process_early_command_line();
